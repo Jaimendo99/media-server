@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - JELLYFIN_PublishedServerUrl=192.168.100.202
+    volumes:
+      - /mnt/media/media/cache:/config
+      - /mnt/media/media/tv:/data/tvshows
+      - /mnt/media/media/movies:/data/movies
+    ports:
+      - "192.168.100.202:8096:8096"
+      - "192.168.100.202:8920:8920"
+      - "192.168.100.202:7359:7359/udp"
+      - "192.168.100.202:1900:1900/udp"
+    restart: unless-stopped
+    networks:
+      - compwork
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /mnt/media/media/cache:/config
+      - /mnt/media/media/movies:/movies
+      - /mnt/media/media/cache/downloads:/downloads
+    ports:
+      - "192.168.100.202:8787:7878"
+    restart: unless-stopped
+    networks:
+      - compwork
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /mnt/media/media/cache:/config
+      - /mnt/media/media/tv:/tv
+      - /mnt/media/media/cache/downloads:/downloads
+    ports:
+      - "192.168.100.202:8989:8989"
+    restart: unless-stopped
+    networks:
+      - compwork
+
+  deluge:
+    image: lscr.io/linuxserver/deluge:latest
+    container_name: deluge
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - DELUGE_LOGLEVEL=error
+    volumes:
+      - /mnt/media/media/cache:/config
+      - /mnt/media/media/cache/downloads:/downloads
+    ports:
+      - "192.168.100.202:8112:8112"
+      - "192.168.100.202:6881:6881"
+      - "192.168.100.202:6881:6881/udp"
+      - "192.168.100.202:58846:58846"
+    restart: unless-stopped
+    networks:
+      - compwork
+
+  jackett:
+    image: lscr.io/linuxserver/jackett:latest
+    container_name: jackett
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - AUTO_UPDATE=true
+    volumes:
+      - /mnt/media/media/cache:/config
+      - /mnt/media/media/cache/downloads:/downloads
+    ports:
+      - "192.168.100.202:9117:9117"
+    restart: unless-stopped
+    networks:
+      - compwork
+
+networks:
+  compwork:
+    driver: bridge
+
