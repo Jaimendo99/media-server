@@ -8,7 +8,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      - JELLYFIN_PublishedServerUrl=192.168.100.202
+      - JELLYFIN_PublishedServerUrl=192.168.3.202
     volumes:
       - /mnt/media/media/cache:/config
       - /mnt/media/media/tv:/data/tvshows
