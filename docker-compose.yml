@@ -8,16 +8,16 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      - JELLYFIN_PublishedServerUrl=192.168.0.202
+      - JELLYFIN_PublishedServerUrl=192.168.10.202
     volumes:
       - /mnt/media/media/cache:/config
       - /mnt/media/media/tv:/data/tvshows
       - /mnt/media/media/movies:/data/movies
     ports:
-      - "192.168.0.202:8096:8096"
-      - "192.168.0.202:8920:8920"
-      - "192.168.0.202:7359:7359/udp"
-      - "192.168.0.202:1900:1900/udp"
+      - "192.168.10.202:8096:8096"
+      - "192.168.10.202:8920:8920"
+      - "192.168.10.202:7359:7359/udp"
+      - "192.168.10.202:1900:1900/udp"
     restart: unless-stopped
     networks:
       - compwork
@@ -34,7 +34,7 @@ services:
       - /mnt/media/media/movies:/movies
       - /mnt/media/media/cache/downloads:/downloads
     ports:
-      - "192.168.0.202:8787:7878"
+      - "192.168.10.202:8787:7878"
     restart: unless-stopped
     networks:
       - compwork
@@ -51,7 +51,7 @@ services:
       - /mnt/media/media/tv:/tv
       - /mnt/media/media/cache/downloads:/downloads
     ports:
-      - "192.168.0.202:8989:8989"
+      - "192.168.10.202:8989:8989"
     restart: unless-stopped
     networks:
       - compwork
@@ -68,10 +68,10 @@ services:
       - /mnt/media/media/cache:/config
       - /mnt/media/media/cache/downloads:/downloads
     ports:
-      - "192.168.0.202:8112:8112"
-      - "192.168.0.202:6881:6881"
-      - "192.168.0.202:6881:6881/udp"
-      - "192.168.0.202:58846:58846"
+      - "192.168.10.202:8112:8112"
+      - "192.168.10.202:6881:6881"
+      - "192.168.10.202:6881:6881/udp"
+      - "192.168.10.202:58846:58846"
     restart: unless-stopped
     networks:
       - compwork
@@ -88,7 +88,7 @@ services:
       - /mnt/media/media/cache:/config
       - /mnt/media/media/cache/downloads:/downloads
     ports:
-      - "192.168.0.202:9117:9117"
+      - "192.168.10.202:9117:9117"
     restart: unless-stopped
     networks:
       - compwork
